@@ -1,37 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+
+{% block body %}{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
-    <!-- Ensure jQuery is loaded -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.btn-delete').click(function () {
-                var personalCardId = $(this).data('id');
-                var csrfToken = '{{ csrf_token('delete' ~ personalCardId) }}';
-                var deleteUrl = '{{ path('personal_card_delete', {'id': 'id_placeholder'}) }}';
-                deleteUrl = deleteUrl.replace('id_placeholder', personalCardId);
-
-                if (confirm('Are you sure you want to delete this personal card?')) {
-                    $.ajax({
-                        url: deleteUrl,
-                        method: 'POST',
-                        data: {
-                            '_method': 'DELETE',
-                            '_token': csrfToken
-                        },
-                        success: function (response) {
-                            console.log('Success:', response);
-                            if (response.success) {
-                                $('#row-' + personalCardId).remove();
-                            } else {
-                                console.error('Failed to delete record');
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error:', error);
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {# Include additional JavaScript files here if needed #}
 {% endblock %}
+
+</body>
+</html>

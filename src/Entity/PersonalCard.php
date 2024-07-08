@@ -70,6 +70,12 @@ class PersonalCard
     {
         return $this->Addr;
     }
+    public function setAddr(string $Addr): self
+    {
+        $this->Addr = $Addr;
+
+        return $this;
+    }
 
 
     public function getAddress(): ?string

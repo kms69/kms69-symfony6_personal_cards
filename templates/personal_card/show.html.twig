@@ -2,22 +2,53 @@
 
 {% block title %}Personal Card Details{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-right: 5px;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Personal Card Details</h1>
+    <div class="container card-container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h1 class="mb-4">Personal Card Details</h1>
 
-    <dl class="row">
-        <dt class="col-sm-3">Name</dt>
-        <dd class="col-sm-9">{{ personal_card.name }}</dd>
+                        <dl class="row">
+                            <dt class="col-sm-3">Name</dt>
+                            <dd class="col-sm-9">{{ personal_card.name }}</dd>
 
-        <dt class="col-sm-3">Family</dt>
-        <dd class="col-sm-9">{{ personal_card.fam }}</dd>
+                            <dt class="col-sm-3">Family</dt>
+                            <dd class="col-sm-9">{{ personal_card.fam }}</dd>
 
-        <dt class="col-sm-3">Telephone</dt>
-        <dd class="col-sm-9">{{ personal_card.tel }}</dd>
+                            <dt class="col-sm-3">Telephone</dt>
+                            <dd class="col-sm-9">{{ personal_card.tel }}</dd>
 
-        <dt class="col-sm-3">Address</dt>
-        <dd class="col-sm-9">{{ personal_card.addr }}</dd>
-    </dl>
+                            <dt class="col-sm-3">Address</dt>
+                            <dd class="col-sm-9">{{ personal_card.addr }}</dd>
+                        </dl>
 
-    <a href="{{ path('personal_card_index') }}" class="btn btn-primary">Back to List</a>
+                        <a href="{{ path('personal_card_index') }}" class="btn btn-primary"><i
+                                    class="fas fa-arrow-left mr-2"></i> Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

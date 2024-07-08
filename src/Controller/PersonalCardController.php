@@ -77,34 +77,40 @@ class PersonalCardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('personal_card_index');
+            // Return a JSON response indicating success
+            return new JsonResponse(['success' => true]);
         }
 
+        // If form submission fails or on initial GET request, render the edit form template
         return $this->render('personal_card/edit.html.twig', [
             'form' => $form->createView(),
             'personal_card' => $personalCard,
         ]);
     }
 
-    #[Route('/{id}', name: 'personal_card_delete', methods: ['DELETE'])]
-    public function delete(Request $request, int $id, PersonalCardRepository $personalCardRepository, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'personal_card_delete', methods: ['POST', 'DELETE'])]
+    public function delete(Request $request, int $id, PersonalCardRepository $personalCardRepository, EntityManagerInterface $entityManager): JsonResponse
     {
-        $csrfToken = $request->request->get('_token');
+        if ($request->getMethod() === 'POST' && $request->request->get('_method') === 'DELETE') {
+            $csrfToken = $request->request->get('_token');
 
-        if ($this->isCsrfTokenValid('delete' . $id, $csrfToken)) {
-            $personalCard = $personalCardRepository->find($id);
+            if ($this->isCsrfTokenValid('delete' . $id, $csrfToken)) {
+                $personalCard = $personalCardRepository->find($id);
 
-            if (!$personalCard) {
-                throw $this->createNotFoundException('Personal card not found');
+                if (!$personalCard) {
+                    throw $this->createNotFoundException('Personal card not found');
+                }
+
+                $entityManager->remove($personalCard);
+                $entityManager->flush();
+
+                return new JsonResponse(['success' => true]);
             }
 
-            $entityManager->remove($personalCard);
-            $entityManager->flush();
-
-            return $this->json(['success' => true]);
+            return new JsonResponse(['success' => false], Response::HTTP_FORBIDDEN);
         }
 
-        return $this->json(['success' => false], Response::HTTP_FORBIDDEN);
+        return new JsonResponse(['success' => false], Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
     #[Route('/export', name: 'personal_card_export_csv', methods: ['GET'])]

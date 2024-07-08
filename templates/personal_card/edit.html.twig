@@ -1,46 +1,83 @@
-{# templates/personal_card/edit.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Personal Card{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .ajax-form {
+            margin-top: 1.5rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Edit Personal Card</h1>
+    <div class="container">
+        <h1 class="mt-4">Edit Personal Card</h1>
 
-    <div id="edit-form">
-        {{ form_start(form, {'attr': {'class': 'ajax-form', 'data-url': path('personal_card_edit', {'id': personal_card.id})}}) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.fam) }}
-        {{ form_row(form.tel) }}
-        {{ form_row(form.addr) }}
+        <div id="edit-form">
+            {{ form_start(form, {'attr': {'class': 'ajax-form', 'data-url': path('personal_card_edit', {'id': personal_card.id})}}) }}
 
-        <button type="submit">Save</button>
-        {{ form_end(form) }}
+            <div class="form-group">
+                {{ form_label(form.name, 'Name') }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.fam, 'Family') }}
+                {{ form_widget(form.fam, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.tel, 'Telephone') }}
+                {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.addr, 'Address') }}
+                {{ form_widget(form.addr, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit">Save</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Example of handling Ajax form submission
-        $('.ajax-form').submit(function (e) {
-            e.preventDefault();
-            var url = $(this).data('url');
-            var formData = $(this).serialize();
+        $(document).ready(function () {
+            $('.ajax-form').submit(function (e) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                var formData = $(this).serialize();
 
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: formData,
-                success: function (response) {
-                    if (response.success) {
-                        // Handle success (e.g., show success message, update UI)
-                        console.log('Form submitted successfully');
-                    } else {
-                        // Handle errors if needed
-                        console.error('Form submission failed');
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            console.log('Form submitted successfully');
+                            window.location.href = '{{ path('personal_card_index') }}'; // Redirect to index page on success
+                        } else {
+                            console.error('Form submission failed: Server returned success false');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Form submission failed: ' + error);
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error:', error);
-                }
+                });
             });
         });
     </script>
