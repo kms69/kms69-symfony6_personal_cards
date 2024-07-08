@@ -19,7 +19,7 @@ Ensure you have the following installed:
 
 #### Clone the repository
 ```bash
-git clone https://github.com/kms69/symfony6_personal_cards.git
+https://github.com/kms69/kms69-symfony6_personal_cards.git
 cd symfony6_personal_cards
 ```
 ### Install Dependencies
@@ -30,7 +30,7 @@ composer install
 
 Create a .env.local file in the root directory and configure your database connection:
 ```bash
- > doctrine/doctrine-bundle
+ < doctrine/doctrine-bundle
 DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
  < doctrine/doctrine-bundle
 ```
@@ -65,7 +65,8 @@ Personal Card Service:
 
 Environment Variables
 Ensure your .env.local file contains the following variables:
-
+```bash
 > doctrine/doctrine-bundle
 DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
  < doctrine/doctrine-bundle
+```
