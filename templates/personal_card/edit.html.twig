@@ -1,0 +1,47 @@
+{# templates/personal_card/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Personal Card{% endblock %}
+
+{% block body %}
+    <h1>Edit Personal Card</h1>
+
+    <div id="edit-form">
+        {{ form_start(form, {'attr': {'class': 'ajax-form', 'data-url': path('personal_card_edit', {'id': personal_card.id})}}) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.fam) }}
+        {{ form_row(form.tel) }}
+        {{ form_row(form.addr) }}
+
+        <button type="submit">Save</button>
+        {{ form_end(form) }}
+    </div>
+
+    <script>
+        // Example of handling Ajax form submission
+        $('.ajax-form').submit(function (e) {
+            e.preventDefault();
+            var url = $(this).data('url');
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        // Handle success (e.g., show success message, update UI)
+                        console.log('Form submitted successfully');
+                    } else {
+                        // Handle errors if needed
+                        console.error('Form submission failed');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    </script>
+{% endblock %}

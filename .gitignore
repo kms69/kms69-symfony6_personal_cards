@@ -1,0 +1,15 @@
+# Symfony specific
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+
+# PHPUnit
+/phpunit.xml
+.phpunit.result.cache
+
+# Symfony PHPUnit Bridge
+/.phpunit.result.cache

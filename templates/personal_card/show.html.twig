@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personal Card Details{% endblock %}
+
+{% block body %}
+    <h1>Personal Card Details</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{ personal_card.name }}</dd>
+
+        <dt class="col-sm-3">Family</dt>
+        <dd class="col-sm-9">{{ personal_card.fam }}</dd>
+
+        <dt class="col-sm-3">Telephone</dt>
+        <dd class="col-sm-9">{{ personal_card.tel }}</dd>
+
+        <dt class="col-sm-3">Address</dt>
+        <dd class="col-sm-9">{{ personal_card.addr }}</dd>
+    </dl>
+
+    <a href="{{ path('personal_card_index') }}" class="btn btn-primary">Back to List</a>
+{% endblock %}
