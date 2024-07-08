@@ -17,36 +17,42 @@ Ensure you have the following installed:
 
 ### Installation
 
-1. [**Clone the repository:**](https://www.bing.com/search?form=SKPBOT&q=Clone%20the%20repository%3A)
+#### Clone the repository
 ```bash
 git clone https://github.com/kms69/symfony6_personal_cards.git
 cd symfony6_personal_cards
-
+```
 ### Install Dependencies
+```bash
 composer install
-
+```
 ### Configure Environment Variables
+
 Create a .env.local file in the root directory and configure your database connection:
-
-# > doctrine/doctrine-bundle
+```bash
+ > doctrine/doctrine-bundle
 DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
-# < doctrine/doctrine-bundle
-
+ < doctrine/doctrine-bundle
+```
 Replace db_user, db_password, and db_name with your actual database credentials.
 
 ### Create the Database
+```bash
 php bin/console doctrine:database:create
-
+```
 ### Run Migrations
+```bash
 php bin/console doctrine:migrations:migrate
-
+```
 ### Start the Symfony Server
+```bash
 symfony server:start
-
+```
 The application will be available at http://127.0.0.1:8000/personal_card/.
 
-### API Endpoints
-Personal Card Service
+API Endpoints
+Personal Card Service:
+
 •  GET /personal_card - List all personal cards
 
 •  GET /personal_card/{id} - Show details of a personal card
@@ -57,10 +63,9 @@ Personal Card Service
 
 •  DELETE /personal_card/{id} - Delete a personal card
 
-### Environment Variables
+Environment Variables
 Ensure your .env.local file contains the following variables:
 
-# > doctrine/doctrine-bundle
+> doctrine/doctrine-bundle
 DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
-# < doctrine/doctrine-bundle
-
+ < doctrine/doctrine-bundle
